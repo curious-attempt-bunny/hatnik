@@ -18,7 +18,8 @@
     (stg/create-project! @stg/storage {:name "Default"
                                        :user-id id})
     {:email email
-     :id id}))
+     :id id
+     :user-token user-token}))
 
 (defn github-login [code state]
   (let [resp (client/post "https://github.com/login/oauth/access_token"

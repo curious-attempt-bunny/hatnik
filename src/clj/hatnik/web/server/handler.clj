@@ -8,6 +8,7 @@
             [monger.core :as mg]
 
             [hatnik.web.server.renderer :as renderer]
+            [hatnik.web.server.repos :refer [repos-api]]
             [hatnik.web.server.projects :refer [projects-api]]
             [hatnik.web.server.actions :refer [actions-api]]
             [hatnik.web.server.login :refer [login-api]]
@@ -64,6 +65,8 @@
 (defroutes app-routes
   (GET "/" [] renderer/core-page)
   (context "/api" []
+           (context "/repos" []
+                    (wrap-authenticated-only repos-api))
            (context "/projects" []
                     (wrap-authenticated-only projects-api))
            (context "/actions" []

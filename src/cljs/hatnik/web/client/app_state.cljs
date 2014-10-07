@@ -1,7 +1,8 @@
 (ns hatnik.web.client.app-state)
 
-(def app-state 
+(def app-state
   (atom {:projects []
+         :repos []
          :form-type :email-action
          :user {}
          :current-project nil
@@ -17,13 +18,22 @@
              assoc :projects
              (get data "projects")))))
 
+(defn update-repos-list [reply]
+  (let [json (.getResponseJson (.-target reply))
+        data (js->clj json)]
+    (when (= "ok" (get data "result"))
+      (swap! app-state
+             assoc :repos
+             (get data "repos")))
+    (prn (:repos @app-state))))
+
 (defn set-form-type [action-type]
   (swap! app-state
          assoc :form-type
          action-type))
 
 (defn set-current-project [id]
-  (swap! app-state 
+  (swap! app-state
          assoc :current-project id))
 
 (defn set-current-action [action]

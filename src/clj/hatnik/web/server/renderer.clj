@@ -30,22 +30,20 @@
       [:div.modal-header
        [:h4.modal-title "Creating a new project"]]
       [:div.modal-body
-       [:form
-        [:input#project-name-input.form-control 
-         {:type "text"
-          :placeholder "Project name"}]]]
+       [:form#iRepoList
+        [:select#project-name-input.form-control]]]
       [:div.modal-footer
        [:button.btn.btn-primary {:onClick "hatnik.web.client.z_actions.send_new_project_request()"} "Create"]]]]]
 
-   [:div#iModalProjectMenu.modal.fade 
+   [:div#iModalProjectMenu.modal.fade
     [:div.modal-dialog
      [:div.modal-content
       [:div.modal-header
        [:h4.modal-title "Project menu"]]
-      
+
       [:div.modal-body
        [:form
-        [:input#project-name-edit-input.form-control 
+        [:input#project-name-edit-input.form-control
          {:type "text"
           :placeholder "Project name"}]]]
 
@@ -70,19 +68,19 @@
         [:a {:href "#"} (:email user)]]
        [:li
         [:a.btn {:href "/api/logout"} "Logout"]]]
-      
+
                                         ; User don't log in
-      [:ul.nav.navbar-nav.navbar-right         
+      [:ul.nav.navbar-nav.navbar-right
        [:li
-        [:a.btn 
+        [:a.btn
          {:href github-link} "Login via GitHub"]]])]])
 
 (defn work-main-page [req]
   (hc/html
-   [:div.row      
+   [:div.row
     [:div.col-md-2
-     [:a.btn.btn-success 
-      {:href "#" 
+     [:a.btn.btn-success
+      {:href "#"
        :onclick "$('#iModalProject').modal()"} "Add project"]]
     [:div.col-md-10]]
 
@@ -142,22 +140,22 @@
   (let [user (:user (:session req))]
     (hc/html
      (page-html-head)
-     
+
      [:body
       [:div.container
-       (page-menu user)       
-       
-       (if user 
+       (page-menu user)
+
+       (if user
          (work-main-page req)
          (about-page))]
 
        (when user (modal-frames))
 
-      [:script {:src "/js/jquery-2.1.1.min.js"}]    
+      [:script {:src "/js/jquery-2.1.1.min.js"}]
       [:script {:src "/js/bootstrap.min.js"}]
       [:script {:src "/js/react.min.js"}]
       [:script {:src "/js/jquery.bootstrap-growl.min.js"}]
-      
+
       (when user
         [:script {:src "/gen/js/hatnik.js"}])])))
 

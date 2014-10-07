@@ -1,3 +1,5 @@
+(enable-console-print!)
+
 (ns hatnik.web.client.components
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
@@ -114,3 +116,12 @@
            :body-id (str "__PrjList" (get prj "id"))))
         (:projects data))))))
 
+(defn repo-list [data owner]
+  (reify
+    om/IRender
+    (render [this]
+       (apply dom/select #js {:id "project-name-input"}
+         (reduce
+            (fn [coll repo] (conj coll (dom/option #js {:value repo} repo)))
+            []
+            (:repos data))))))

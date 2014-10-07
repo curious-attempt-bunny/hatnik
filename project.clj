@@ -38,10 +38,12 @@
           [{:source-paths ["src/cljs"]
             :compiler
             {:output-to "resources/public/gen/js/hatnik.js"
+             :output-dir "resources/public/gen/js"
              :optimizations :simple
-             :pretty-print true}}]
+             :pretty-print true
+             :source-map "resources/public/gen/js/hatnik-sourcemap.js"}}]
           }}
-   :release 
+   :release
    {:cljsbuild
     {:builds
      [{:source-paths ["src/cljs"]

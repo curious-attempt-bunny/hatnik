@@ -6,7 +6,12 @@
             [hatnik.web.client.app-state :as state]))
 
 (om/root widget/project-list state/app-state
-         {:target (. js/document (getElementById "iProjectList"))}) 
+         {:target (. js/document (getElementById "iProjectList"))})
+
+(om/root widget/repo-list state/app-state
+         {:target (. js/document (getElementById "iRepoList"))})
 
 (.send goog.net.XhrIo "/api/projects" state/update-projects-list)
+
+(.send goog.net.XhrIo "/api/repos" state/update-repos-list)
 
